@@ -1,0 +1,9 @@
+Hallazgos y Conclusiones del Ejercicio E2E:
+
+1. Alertas del Navegador: La plataforma Demoblaze utiliza alertas nativas del navegador (`window:alert`) para confirmar que un producto ha sido agregado al carrito. Cypress maneja y acepta estas alertas automáticamente por defecto, lo que facilita la automatización del flujo sin necesidad de interactuar explícitamente con el pop-up, aunque se agregó un 'listener' en el código para verificar que el texto de la alerta sea el correcto.
+
+2. Validaciones del Formulario: Durante la automatización del llenado de datos en el modal "Place Order", se observó que la aplicación carece de validaciones estrictas en el frontend. Permite procesar la compra incluso si se ingresan datos inválidos o formatos incorrectos en campos críticos como la tarjeta de crédito.
+
+3. Sincronización y Esperas: Dado que la página es una SPA (Single Page Application) que hace peticiones asíncronas para cargar los productos, se utilizaron comandos integrados de Cypress (como .should('be.visible')) que aplican reintentos y esperas implícitas. Esto evita la "fragilidad" (flakiness) en la prueba sin necesidad de usar pausas estáticas (hard waits) como cy.wait().
+
+4. Conclusión: El flujo de compra principal ("Happy Path") es funcional y pudo ser automatizado exitosamente de principio a fin, validando la adición de productos, el renderizado del carrito y la generación final de la orden de compra.
